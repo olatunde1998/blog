@@ -14,12 +14,13 @@ import blogRoute from "./routes/blog-route";
 
 const app = express();
 const COOKIE_SECRET_KEY = process.env.COOKIE_SECRET_KEY;
-const FRONTEND_URL = process.env.FRONTEND_URL;
+const FRONTEND_URL = process.env.FRONTEND_URL_DEVELOPMENT;
+const FRONTEND_URL_DEVELOPMENT = process.env.FRONTEND_URL_DEVELOPMENT;
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT;
 
 var corsOptions = {
-  origin: [PORT, FRONTEND_URL],
+  origin: [PORT, FRONTEND_URL, FRONTEND_URL_DEVELOPMENT],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
