@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "baseUrl": "src",
+        "outDir": "dist",
+        "sourceMap": false,
+        "noImplicitAny": true,
+    },
+    "include": [
+        "src/**/*"
+    ],
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//  "compilerOptions": {
+//     "target": "es6",
+//     "module": "commonjs",
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "skipLibCheck": true,
+//     "forceConsistentCasingInFileNames": true
+//   },
+//   "include": ["src/**/*"],
+//   "exclude": ["node_modules"]
+// }
+
