@@ -1,4 +1,4 @@
-# geodevcodes Blog
+# Blog
 
 Includes API Server utilities:
 
