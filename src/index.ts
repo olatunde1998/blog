@@ -50,15 +50,14 @@ app.use(
     keys: [COOKIE_SECRET_KEY],
     httpOnly: true, // Ensure cookies are not accessible via client-side JS
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "development",
-    // secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
+    secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
   })
 );
 
 // set up routes
 app.use("/auth", authRoute);
-app.use("/api/users", userRoute);
-app.use("/api/blogs", blogRoute);
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/blogs", blogRoute);
 
 app.get("/", (req, res) => {
   logger.info("Hello world, welcome to geodevcodes API, thank you geodevcodes");
