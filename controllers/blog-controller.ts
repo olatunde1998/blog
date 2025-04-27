@@ -72,7 +72,7 @@ export const getBlogs = asyncHandler(async (req: any, res: any) => {
       meta,
       data: blogs,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }
@@ -94,7 +94,7 @@ export const getBlog = asyncHandler(async (req: any, res: any) => {
       message: "Blog Fetched Successfully",
       data: blog,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }
@@ -123,7 +123,7 @@ export const updateBlog = asyncHandler(async (req: any, res: any) => {
       message: "Blog Updated Successfully",
       data: updatedBlog,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message,
@@ -152,7 +152,7 @@ export const deleteBlog = asyncHandler(async (req: any, res: any) => {
       message: "Blog Deleted Successfully",
       data: [],
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }

@@ -2,6 +2,8 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user-model";
 import jwt from "jsonwebtoken";
 
+const SECRET_KEY = process.env.SECRET_KEY;
+
 // Google Oauth Login
 export const googleLoginUser = asyncHandler(async (req, res: any) => {
   const { email, name, picture, googleId } = req.body;
@@ -31,12 +33,13 @@ export const googleLoginUser = asyncHandler(async (req, res: any) => {
       await user.save();
     }
 
+    if (!SECRET_KEY) {
+      throw new Error("SECRET_KEY is missing in environment variables.");
+    }
     // Generate JWT token after ensuring user exists
-    const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      process.env.SECRET_KEY,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ userId: user._id, role: user.role }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
 
     return res.status(200).json({
       message: "Google login successful",
@@ -49,7 +52,7 @@ export const googleLoginUser = asyncHandler(async (req, res: any) => {
       },
       token,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Google login error:", error);
     return res.status(500).json({
       message: "Internal server error",
@@ -93,12 +96,13 @@ export const githubLoginUser = asyncHandler(async (req, res: any) => {
       await user.save();
     }
 
+    if (!SECRET_KEY) {
+      throw new Error("SECRET_KEY is missing in environment variables.");
+    }
     // Generate JWT token
-    const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      process.env.SECRET_KEY,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ userId: user._id, role: user.role }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
 
     return res.status(200).json({
       message: "GitHub login successful",
@@ -111,7 +115,7 @@ export const githubLoginUser = asyncHandler(async (req, res: any) => {
       },
       token,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("GitHub login error:", error);
     return res.status(500).json({
       message: "Internal server error",

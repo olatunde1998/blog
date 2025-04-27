@@ -53,7 +53,7 @@ export const getUsers = asyncHandler(async (req: any, res: any) => {
       meta,
       data: users,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }
@@ -75,7 +75,7 @@ export const getUser = asyncHandler(async (req: any, res: any) => {
       message: "User Fetched Successfully",
       data: user,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }
@@ -95,7 +95,7 @@ export const getUserProfile = asyncHandler(async (req: any, res: any) => {
       message: "User Fetched Successfully",
       data: user,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }
@@ -125,7 +125,7 @@ export const updateUser = asyncHandler(async (req: any, res: any) => {
       message: "Profile Updated Successfully",
       data: updatedUser,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message,
@@ -153,7 +153,7 @@ export const deleteUser = asyncHandler(async (req: any, res: any) => {
       message: "User Deleted Successfully",
       data: [],
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500);
     throw new Error(error.message);
   }
