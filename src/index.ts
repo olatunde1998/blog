@@ -14,9 +14,11 @@ import blogRoute from "./routes/blog-route";
 
 const app = express();
 const COOKIE_SECRET_KEY = process.env.COOKIE_SECRET_KEY;
-const FRONTEND_URL = process.env.FRONTEND_URL_DEVELOPMENT;
-const FRONTEND_URL_DEVELOPMENT = process.env.FRONTEND_URL_DEVELOPMENT;
-const FRONTEND_URL_PRODUCTION = process.env.FRONTEND_URL_PRODUCTION;
+const FRONTEND_URL =
+  process.env.NODE_ENV === "production"
+    ? process.env.FRONTEND_URL_PRODUCTION
+    : process.env.FRONTEND_URL_DEVELOPMENT;
+
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT;
 
@@ -27,14 +29,9 @@ if (!MONGO_URL) {
   throw new Error("MONGO_URL is missing in environment variables.");
 }
 
-const allowedOrigins = [
-  FRONTEND_URL,
-  FRONTEND_URL_DEVELOPMENT,
-  FRONTEND_URL_PRODUCTION
-].filter((url): url is string => Boolean(url));
 
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: FRONTEND_URL,
   optionsSuccessStatus: 200,
   credentials: true,
 };
@@ -74,7 +71,9 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/blogs", blogRoute);
 
 app.get("/", (req, res) => {
-  logger.info("Hello world,  welcome to geodevcodes API, thank you geodevcodes");
+  logger.info(
+    "Hello world,  welcome to geodevcodes API, thank you geodevcodes"
+  );
   res.send("Hello world, welcome to geodevcodes API, thank you geodevcodes");
 });
 
