@@ -9,7 +9,7 @@ export const googleLoginUser = asyncHandler(async (req, res: any) => {
   const { email, name, picture, googleId } = req.body;
 
   if (!email) {
-    return res.status(400).json({ message: "Email is required" });
+    return res.status(400).json({ message: "Email  is required" });
   }
 
   if (!googleId) {
