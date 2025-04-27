@@ -6,4 +6,4 @@ RUN npm install
 COPY . .
 EXPOSE 3001
 
-CMD ["node", "index.ts"]
+CMD ["node", "server.ts"]
