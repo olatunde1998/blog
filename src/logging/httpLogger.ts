@@ -12,7 +12,7 @@ const format = json({
 
 const httpLogger = morgan(format, {
   stream: {
-    write: (message) => {
+    write: (message: string) => {
       const { method, url, status, contentLength, responseTime } =
         JSON.parse(message);
 
