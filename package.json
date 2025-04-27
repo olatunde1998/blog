@@ -2,12 +2,12 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/index.js",
+    "dev": "nodemon index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@types/multer": "^1.4.12",
     "axios": "^1.9.0",
     "body-parser": "^2.2.0",
     "compression": "^1.8.0",
