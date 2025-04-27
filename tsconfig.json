@@ -2,13 +2,14 @@
     "compilerOptions": {
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "baseUrl": "src",
+        "baseUrl": "/",
         "outDir": "dist",
         "sourceMap": false,
         "noImplicitAny": true,
     },
     "include": [
-        "src/**/*"
+        "/**/*",
+        "models", "routes"    
     ],
 }
 
