@@ -16,6 +16,7 @@ const app = express();
 const COOKIE_SECRET_KEY = process.env.COOKIE_SECRET_KEY;
 const FRONTEND_URL = process.env.FRONTEND_URL_DEVELOPMENT;
 const FRONTEND_URL_DEVELOPMENT = process.env.FRONTEND_URL_DEVELOPMENT;
+const FRONTEND_URL_PRODUCTION = process.env.FRONTEND_URL_PRODUCTION;
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT;
 
@@ -26,15 +27,16 @@ if (!MONGO_URL) {
   throw new Error("MONGO_URL is missing in environment variables.");
 }
 
-const allowedOrigins = [FRONTEND_URL, FRONTEND_URL_DEVELOPMENT].filter(
-  (url): url is string => Boolean(url)
-);
+const allowedOrigins = [
+  FRONTEND_URL,
+  FRONTEND_URL_DEVELOPMENT,
+  FRONTEND_URL_PRODUCTION
+].filter((url): url is string => Boolean(url));
 
 const corsOptions = {
   origin: allowedOrigins,
   optionsSuccessStatus: 200,
   credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 };
 
 app.use(cors(corsOptions));
