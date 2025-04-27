@@ -71,7 +71,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/blogs", blogRoute);
 
 app.get("/", (req, res) => {
-  logger.info("Hello world, welcome to geodevcodes API, thank you geodevcodes");
+  logger.info("Hello world,  welcome to geodevcodes API, thank you geodevcodes");
   res.send("Hello world, welcome to geodevcodes API, thank you geodevcodes");
 });
 
