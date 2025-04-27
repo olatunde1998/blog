@@ -1,16 +1,16 @@
 require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
-import errorMiddleware from "./middlewares/error-middleware";
+import errorMiddleware from "../middlewares/error-middleware";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import logger from "./logging/logger";
-import httpLogger from "./logging/httpLogger";
+import logger from "../logging/logger";
+import httpLogger from "../logging/httpLogger";
 import cookieSession from "cookie-session";
-import authRoute from "./routes/auth-route";
-import userRoute from "./routes/user-route";
-import blogRoute from "./routes/blog-route";
+import authRoute from "../routes/auth-route";
+import userRoute from "../routes/user-route";
+import blogRoute from "../routes/blog-route";
 
 const app = express();
 const COOKIE_SECRET_KEY = process.env.COOKIE_SECRET_KEY;
