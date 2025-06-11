@@ -14,7 +14,6 @@ export const getUsers = asyncHandler(async (req: any, res: any) => {
     if (search) {
       filter = {
         $or: [
-          { companyName: { $regex: search, $options: "i" } },
           { email: { $regex: search, $options: "i" } },
           { fullName: { $regex: search, $options: "i" } },
         ],
@@ -30,15 +29,9 @@ export const getUsers = asyncHandler(async (req: any, res: any) => {
     const endCursor = skip + users.length;
     const hasNextPage = endCursor < totalItems;
 
-    const totalCompanies = await User.countDocuments({ role: "Company" });
-    const totalStudents = await User.countDocuments({ role: "User" });
-    const totalAdmins = await User.countDocuments({ role: "Admin" });
 
     const meta = {
       totalUsers,
-      totalCompanies,
-      totalStudents,
-      totalAdmins,
       totalItems,
       limit,
       pageNumber,
