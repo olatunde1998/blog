@@ -1,30 +1,41 @@
 import winston from "winston";
+import fs from "fs";
+import path from "path";
 
-const options = {
-  file: {
-    level: "info",
-    filename: "./logs/app.log",
-    handleExceptions: true,
-    json: true,
-    maxsize: 5242880, // 5MB
-    maxFiles: 5,
-    colorize: false,
-  },
-  console: {
-    level: "debug",
-    handleExceptions: true,
-    json: false,
-    colorize: true,
-  },
-};
+const isProduction = process.env.NODE_ENV === "production";
+
+// Use /tmp in production (serverless), local logs in dev
+const logDir = isProduction ? "/tmp/logs" : path.join(process.cwd(), "logs");
+
+// Ensure directory exists
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir, { recursive: true });
+}
 
 const logger = winston.createLogger({
-  levels: winston.config.npm.levels,
+  level: "info",
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
   transports: [
-    new winston.transports.File(options.file),
-    new winston.transports.Console(options.console),
+    new winston.transports.File({
+      filename: path.join(logDir, "app.log"),
+      level: "info",
+      handleExceptions: true,
+      maxsize: 5 * 1024 * 1024, // 5MB
+      maxFiles: 5,
+    }),
+    new winston.transports.Console({
+      level: "debug",
+      handleExceptions: true,
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      ),
+    }),
   ],
   exitOnError: false,
 });
 
-export default  logger;
+export default logger;

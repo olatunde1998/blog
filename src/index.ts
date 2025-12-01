@@ -11,8 +11,6 @@ import cookieSession from "cookie-session";
 import authRoute from "./routes/auth-route";
 import userRoute from "./routes/user-route";
 import blogRoute from "./routes/blog-route";
-import { CronJob } from "cron";
-import axios from "axios";
 
 const app = express();
 const COOKIE_SECRET_KEY = process.env.COOKIE_SECRET_KEY;
@@ -86,36 +84,6 @@ app.get("/keepalive", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Set up a cron job to ping your own server every 10 minutes to keep it alive
-const keepAliveCron = new CronJob(
-  "*/10 * * * *", // Run every 10 minutes
-  async function() {
-    try {
-      // Get your own server URL
-      const serverUrl = process.env.BACKEND_URL || `http://localhost:${PORT}`;
-      // Make a request to the blogs endpoint
-      const response = await axios.get(`${serverUrl}/api/v1/blogs?limit=1`);
-      
-      logger.info("Keep-alive cron job executed successfully", {
-        timestamp: new Date().toISOString(),
-        status: response.status
-      });
-    } catch (error) {
-      logger.error("Error in keep-alive cron job", {
-        timestamp: new Date().toISOString(),
-        error: error instanceof Error ? error.message : String(error)
-      });
-    }
-  },
-  null,
-  true, // Start job right away
-  "Africa/Lagos" // Timezone
-);
-
-// Start the cron job
-keepAliveCron.start();
-
-
 app.use(errorMiddleware);
 
 mongoose.set("strictQuery", false);
@@ -124,8 +92,8 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB!");
     app.listen(PORT, () => {
-      // console.log(`Geomatic Connect API is running on Port ${PORT} 🚀`);
-      logger.info(`Geomatic Connect API is running on Port ${PORT} 🚀`);
+      console.log(`geodevcodes endpoints is running on Port ${PORT} 🚀`);
+      logger.info(`geodevcodes endpoints is running on Port ${PORT} 🚀`);
     });
   })
   .catch((error) => {
